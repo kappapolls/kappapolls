@@ -1,0 +1,10 @@
+*.pyc
+db.sqlite3
+*.swp
+polls/polls_bot_settings.py
+polls/*.json
+fabsettings.py
+kappapolls/settings_extras/extras.py
+kappapolls/settings_extras/secret_key.txt
+kappapolls/local_settings.py
+

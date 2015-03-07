@@ -1,0 +1,37 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta name="viewport" 
+              content="width=device-width, initial-scale=1">
+        <script src="{% static 'polls/js/jquery-1.11.2.min.js' %}" 
+                type="text/javascript"></script>
+        <link rel="stylesheet"
+              href="{% static 'polls/bootstrap/css/bootstrap.css' %}">
+        <link rel="stylesheet"
+              href="{% static 'polls/style.css' %}">
+        <link href='http://fonts.googleapis.com/css?family=Roboto'
+              rel='stylesheet' type='text/css'>
+        {% block extra_head %}{% endblock %}
+        <title>{% block page_title %}Kappa Polls{% endblock %}</title>
+    </head>
+    <body>
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 text-center">
+                    <div style="display: inline-block">
+                        <a href="/"><img class="center-block" src="{% static 'polls/imgs/small_kappa.png' %}"></img></a>
+                    </div>
+                </div>
+            </div>
+            {% block content%}
+            {% endblock %}
+            <div class="links row">
+                <div class="col-xs-12 col-sm-6 col-sm-offset-3 text-center">
+                    <a href="https://teespring.com/stores/kappa">Kappa Teespring</a> | <a href="http://reddit.com/r/kappa">/r/Kappa</a> | <a href="http://twitter.com/kapparedditbot">Kappa Twitter</a>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
+
