@@ -6,6 +6,9 @@ class KappaPollsBot:
         self.user_agent = user_agent
         self.r = praw.Reddit(user_agent=self.user_agent)
         self.r.login(username, password)
+        # sometimes cloudflare throws out HTTPError 521 and 522
+        # before reddit can respond
+        self.r.RETRY_CODES += [521, 522]
 
     def count_kappapolls_words_in_first_thread(self):
         words = {}

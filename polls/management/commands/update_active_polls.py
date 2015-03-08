@@ -36,6 +36,8 @@ class Command(BaseCommand):
 
             kappabot = KappaPollsBot()
             vote_thread = kappabot.r.get_submission(submission_id=poll.thread_id)
+            vote_thread.replace_more_comments(limit=None)
+                
             for comment in vote_thread.comments:
                 if comment.id in voted_comments:
                     #skip comments we already looked at
