@@ -7,4 +7,5 @@ fabsettings.py
 kappapolls/settings_extras/extras.py
 kappapolls/settings_extras/secret_key.txt
 kappapolls/local_settings.py
+active_polls_lock
 

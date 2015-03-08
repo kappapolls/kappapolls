@@ -1,4 +1,4 @@
-import json, os, re
+import json, os, re, fcntl, sys
 from django.core.management.base import BaseCommand, CommandError
 from polls.utils import KappaPollsBot
 from polls.models import Poll, Vote, KappaUser
@@ -6,7 +6,24 @@ from polls.models import Poll, Vote, KappaUser
 
 class Command(BaseCommand):
 
+    def try_to_get_lock(self):
+        # to keep from multiple processes breaking api rules
+        print 'trying to get lock'
+
+        f = os.open('active_polls_lock', os.O_CREAT | os.O_TRUNC | os.O_WRONLY)
+        try: fcntl.lockf(f, fcntl.LOCK_EX | fcntl.LOCK_NB)
+        except IOError:
+            #couldnt get lock
+            print 'cant lock'
+            sys.stderr.write('couldnt get lock')
+            sys.exit(-1)
+        print 'got lock'
+        return True
+
     def handle(self, *args, **options):
+
+        self.try_to_get_lock()
+
         # query.values_list('value') returns like [(1,), (2,), (3,)]
         f = lambda x: x[0]
 
