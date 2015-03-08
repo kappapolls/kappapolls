@@ -32,11 +32,11 @@ def make_directories():
     with cd('kappa'):
         run('git clone https://kappapolls@github.com/kappapolls/kappapolls.git')
 
-def deploy(branch='master'):
+def deploy(branch='master', remote='gh'):
     with cd('kappa/kappapolls'):
-        run('git fetch origin')
+        run('git fetch %s' % remote)
         run('git checkout %s' % branch)
-        run('git reset --hard origin/%s' % branch)
+        run('git reset --hard %s/%s' % (remote, branch))
         with prefix("source /usr/share/virtualenvwrapper/virtualenvwrapper.sh; workon kappapolls"):
             run('./manage.py migrate')
             run('./manage.py collectstatic --noinput')
