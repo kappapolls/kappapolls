@@ -1,0 +1,41 @@
+{% extends 'polls/base.html' %}
+{% load staticfiles %}
+
+{% block page_title %}{{poll.name}}{% endblock %}
+
+{% block extra_head %}
+<script type="text/javascript"
+        src="{% static 'polls/js/d3.js' %}"></script>
+<script type="text/javascript"
+        src="{% static 'polls/js/d3pollchart.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-xs-12 text-center">
+        <h1>{{poll.name}}</h1>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12 col-sm-6 col-sm-offset-3">
+        <p>Go to <a href="http://reddit.com/{{poll.thread_id}}">this thread</a> to vote!</p>
+        <p>Description: {{poll.description}}</p>
+        <p>Choices</p>
+        <ul>
+            {% for choice in poll.choice_set.all %}
+            <li>{{choice.name}}</li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12 col-sm-6 col-sm-offset-3">
+        <div class="canvas-wrapper">
+            <div class="hide" id="thread_id">{{poll.thread_id}}</div>
+            <svg id="chart" class="chart"/></svg>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+        

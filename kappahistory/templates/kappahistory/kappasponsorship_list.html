@@ -1,0 +1,68 @@
+{% extends 'polls/base.html' %}
+{% load humanize %}
+{% load staticfiles %}
+
+{% block extra_head %}
+<script type="text/javascript" src="{% static 'polls/js/d3.js' %}">
+</script>
+<script type="text/javascript" src="{% static 'polls/js/tablesort.js' %}">
+</script>
+<script type="text/javascript" src="{% static 'polls/js/sf4map.js' %}">
+</script>
+{% endblock %}
+
+{% block page_title %}Kappa Sponsorships{% endblock %}
+
+{% block content %}
+    <script type="text/javascript">
+        var all_locations = {{ locations|safe }}
+    </script>
+    <div class="row">
+        <h1 class="text-center">r/Kappa Sponsorships</h1>
+        <div class="col-xs-12 text-center">
+            <div class="canvas-wrapper">
+                <svg id="map"></svg>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-6 col-sm-offset-3">
+            <label>thanks to <a href="http://www.reddit.com/user/komodo_dragonzord">komodo_dragonzord</a> for compiling this information</label>
+            <table class="table">
+                <tr>
+                    <th>Player</th>
+                    <th>Event</th>
+                    <th>Game</th>
+                    <th>Result</th>
+                    <th>Donation Drive</th>
+                </tr>
+            {% for sponsorship in object_list %}
+                <tr>
+                    <td>{{sponsorship.player}}</td>
+                    <td>{{sponsorship.event}}</td>
+                    <td>{{sponsorship.game}}</td>
+                    <td>{% if not sponsorship.has_happened %}
+                            TBD
+                        {% else %}
+                            {{sponsorship.result|ordinal}}
+                        {% endif %}
+                    </td>
+                    <td>{% if sponsorship.drives.exists %}
+                            {% for drive in sponsorship.drives.all %}
+                                {% if drive.url %}
+                                    <a href="{{drive.url}}">{{drive.name}}</a>
+                                {% else %}
+                                    {{drive.name}}
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                    </td>
+                    </td>
+                </tr>
+            {% endfor %}
+            </table>
+        </div>
+    </div>
+    
+{% endblock %}
+

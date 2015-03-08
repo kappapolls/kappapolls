@@ -1,0 +1,20 @@
+{% extends 'polls/base.html' %}
+{% load staticfiles %}
+
+{% block page_title %}Kappa Polls{% endblock %}
+
+{% block extra_head %}
+        <script src="{% static 'polls/js/commenters_chart.js' %}"
+                type="text/javascript"></script>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-xs-12 col-sm-6 col-sm-offset-3">
+        <p>Hi /r/Kappa,</p>
+        <p>This is where we'll have the poll results available to view. Once everything is complete, we'll have a graph that shows the updated results of whatever the latest /r/Kappa poll is.</p>
+        <div class="text-center"><h3><a href="{% url 'poll_detail' 'best-part-of-cwc-2015' %}">Check out the first test poll</h3></a></div>
+        <div class="text-center"><h3><a href="{% url 'sponsorship_list' %}">Past /r/Kappa Sponsorships</h3></a></div>
+    </div>
+</div>
+{% endblock %}
