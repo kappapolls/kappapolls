@@ -33,7 +33,7 @@ def poll_detail(request, slug):
     poll = get_object_or_404(Poll, slug=slug)
     choices = poll.choice_set.all()
     #hacky fix to change order for now
-    choices = sorted(choices, key=lambda x: poongko_sort(x.name), reverse=True)
+    choices = sorted(choices, key=lambda x: poongko_sort(x.name))
 
     data = {'poll': poll, 'choices': choices}
     return render(request, 'polls/poll_detail.html', data)
