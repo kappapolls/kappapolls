@@ -22,7 +22,7 @@
         <p>Description: {{poll.description}}</p>
         <p>Choices</p>
         <ul>
-            {% for choice in poll.choice_set.all %}
+            {% for choice in choices %}
             <li>{{choice.name}}</li>
             {% endfor %}
         </ul>

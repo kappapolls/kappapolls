@@ -23,8 +23,18 @@ def poll_results_json(request, poll_thread_id):
 
     return HttpResponse(data, content_type="application/json")
 
+def poongko_sort(x):
+    if x == 'Poongko':
+        return 0
+    else:
+        return x.lower()
+
 def poll_detail(request, slug):
     poll = get_object_or_404(Poll, slug=slug)
-    data = {'poll': poll}
+    choices = poll.choice_set.all()
+    #hacky fix to change order for now
+    choices = sorted(choices, key=lambda x: poongko_sort(x.name), reverse=True)
+
+    data = {'poll': poll, 'choices': choices}
     return render(request, 'polls/poll_detail.html', data)
 
