@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from polls.models import Poll
+import re
 
 # Create your views here.
 def index(request):
@@ -34,7 +35,8 @@ def poll_detail(request, slug):
     choices = poll.choice_set.all()
     #hacky fix to change order for now
     choices = sorted(choices, key=lambda x: poongko_sort(x.name))
+    poll_title = re.sub(r'<.*?>', '', poll.name)
 
-    data = {'poll': poll, 'choices': choices}
+    data = {'poll': poll, 'choices': choices, 'poll_title': poll_title}
     return render(request, 'polls/poll_detail.html', data)
 
